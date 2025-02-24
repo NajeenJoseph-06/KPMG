@@ -132,7 +132,7 @@ def split_text_into_chunks(text, chunk_size=4000):
     """Split text into smaller chunks for processing."""
     return [text[i:i + chunk_size] for i in range(0, len(text), chunk_size)]
 
-# Function to analyze compliance
+# Agent to analyze compliance
 def analyze_compliance(text):
     """AI-based compliance analysis."""
     prompt_template = PromptTemplate(
@@ -159,7 +159,7 @@ def analyze_compliance(text):
         st.error(f"Groq API Error: {e}")
         return None
 
-# Function to modify content based on compliance report
+# Agent to modify content based on compliance report
 def modify_content(text, compliance_report):
     """AI-based content modification."""
     prompt_template = PromptTemplate(
