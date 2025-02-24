@@ -36,6 +36,7 @@ The app provides a **detailed compliance report** and suggests modifications to 
   - `python-docx` for **DOCX** files.
   - `tika` for **DOC** files.
 - **AI Model:** Groq API (using the `mixtral-8x7b-32768` model).
+- **AI Agents Framework**: Langchain
 - **Environment Management:** `dotenv` for loading environment variables.
 - **File Management:** `UUID` for unique user directories, `os` for file operations.
 - **Scheduling:** `schedule` and `threading` for background cleanup tasks.
