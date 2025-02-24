@@ -1,0 +1,11 @@
+langchain
+openai
+python-dotenv
+tika
+langchain-community
+langchain-groq
+streamlit
+python-docx
+pdfplumber
+requests
+schedule
