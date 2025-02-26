@@ -21,3 +21,7 @@ pip-delete-this-directory.txt
 *.tmp
 
 .env
+
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
