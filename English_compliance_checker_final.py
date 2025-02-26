@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pdfplumber
 from docx import Document
@@ -158,6 +159,30 @@ def analyze_compliance(text):
     except Exception as e:
         st.error(f"Groq API Error: {e}")
         return None
+    
+def calculate_compliance_score(compliance_report):
+    """Calculate compliance score based on the number of errors found in the compliance report."""
+    
+    weights = {
+        "grammar mistakes": 3,
+        "passive voice": 2,
+        "clarity issues": 3,
+        "formal writing adherence": 2,
+        "sentence structure": 2
+    }
+
+    total_possible_score = sum(3 * weight for weight in weights.values())  # Max severity (3) * weight sum
+    total_severity_weight = 0
+
+    # Count occurrences of each error type in the compliance report
+    for key, weight in weights.items():
+        count = compliance_report.lower().count(key)  # Case-insensitive counting
+        severity = 3 if "high" in key else 2  # Assign severity dynamically
+        total_severity_weight += count * severity * weight
+
+    compliance_score = 100 - ((total_severity_weight / total_possible_score) * 100)
+    return max(0, round(compliance_score, 2))  # Ensure score is not negative
+
 
 # Agent to modify content based on compliance report
 def modify_content(text, compliance_report):
@@ -223,6 +248,12 @@ if uploaded_file:
 
                     st.subheader("✅ Compliance Report")
                     st.write(st.session_state.compliance_report)
+
+                    if st.session_state.compliance_report:
+                        st.session_state.compliance_score = calculate_compliance_score(st.session_state.compliance_report)
+
+                        st.subheader("📊 Compliance Score")
+                        st.write(f"Overall Compliance Score: **{st.session_state.compliance_score}%**")    
 
                     # If issues are found, show modify option
                     if "mistakes found" in st.session_state.compliance_report.lower() or "issues" in st.session_state.compliance_report.lower():
