@@ -1,1 +1,8 @@
 .env
+
+# Virtual environment
+venv/
+env/
+
+# Log files
+*.log
