@@ -1,1 +1,23 @@
+# Virtual environment
+venv/
+env/
+
+# Package management
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Log files
+*.log
+
+# Streamlit cache
+.streamlit/
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.tmp
+
 .env
