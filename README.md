@@ -10,12 +10,13 @@ The **AI English Compliance Checker** is a web-based application designed to hel
 - Adherence to formal writing guidelines
 - Sentence structure problems  
 
-The app provides a **detailed compliance report** and suggests modifications to improve the document if necessary.
+The app provides a **detailed compliance report**  with compliance score and suggests modifications to improve the document if necessary.
 
 ### 1.2 Key Features
 - **File Upload:** Supports **PDF, DOCX, and DOC** file formats.
 - **Text Extraction:** Extracts text from uploaded documents.
 - **Compliance Analysis:** Uses AI to analyze the document for English writing compliance.
+- **Compliance Score:** Assigns a numerical score based on the document's adherence to writing guidelines.
 - **Content Modification:** Provides AI-generated suggestions to correct issues found in the document.
 - **User-Friendly Interface:** Built using **Streamlit**, offering an intuitive and interactive experience.
 - **File Management:** Automatically cleans up user files older than 1 hour to manage storage.
@@ -36,7 +37,6 @@ The app provides a **detailed compliance report** and suggests modifications to 
   - `python-docx` for **DOCX** files.
   - `tika` for **DOC** files.
 - **AI Model:** Groq API (using the `mixtral-8x7b-32768` model).
-- **AI Agents Framework**: Langchain
 - **Environment Management:** `dotenv` for loading environment variables.
 - **File Management:** `UUID` for unique user directories, `os` for file operations.
 - **Scheduling:** `schedule` and `threading` for background cleanup tasks.
@@ -47,9 +47,10 @@ The app provides a **detailed compliance report** and suggests modifications to 
 3. **Text Extraction:** Extracts text using appropriate libraries.
 4. **Text Chunking:** Splits text into **4000-character** chunks.
 5. **Compliance Analysis:** Uses Groq API to analyze each chunk.
-6. **Report Generation:** Combines compliance reports and displays results.
-7. **Content Modification (Optional):** AI-generated corrections.
-8. **File Cleanup:** Deletes files older than **1 hour** to manage storage.
+6. **Compliance Score Calculation:** Assigns a numerical compliance score based on the document's adherence to writing guidelines.
+7. **Report Generation:** Combines compliance reports and displays results.
+8. **Content Modification (Optional):** AI-generated corrections.
+9. **File Cleanup:** Deletes files older than **1 hour** to manage storage.
 
 ## 3. Key Components
 
@@ -71,6 +72,11 @@ The app provides a **detailed compliance report** and suggests modifications to 
 ### 3.3 Compliance Analysis
 - **Prompt Template:** Guides AI to check for grammar, clarity, passive voice, etc.
 - **Groq API:** Processes each chunk and generates a compliance report.
+- **Compliance Score Calculation:**
+  - The score is based on various factors, including grammar correctness, clarity, readability, and adherence to formal writing guidelines.
+  - The AI assigns a weighted score to each category.
+  - The overall compliance score is an average of these weighted scores, ranging from **0 to 100**, where a higher score indicates better compliance.
+  - Issues found in the document lower the score, while well-structured and grammatically correct content results in a higher score.
 
 ### 3.4 Content Modification
 - **Modification Prompt:** AI suggests corrections based on compliance issues.
@@ -147,7 +153,7 @@ The app provides a **detailed compliance report** and suggests modifications to 
 ### 6.2 Analyzing Compliance
 - Click **"Analyze Compliance"**.
 - The app extracts text and performs compliance analysis.
-- A **compliance report** is displayed.
+- A **compliance report** and **compliance score** are displayed.
 
 ### 6.3 Modifying Content
 - If issues are found, click **"Modify"**.
@@ -157,40 +163,5 @@ The app provides a **detailed compliance report** and suggests modifications to 
 ### 6.4 Clearing/Exiting
 - Click **"Clear / Exit"** to reset the app and start over.
 
-## 7. Limitations and Future Improvements
-
-### 7.1 Limitations
-- **API Rate Limits:** Groq API may impose rate limits.
-- **Performance:** Large files may take time to process, despite chunking.
-
-### 7.2 Future Improvements
-- **Dynamic Chunk Size:** Adjust chunk size dynamically based on API token limits.
-- **Asynchronous Processing:** Use async API calls for better performance.
-- **Enhanced UI:** Add progress bars and improve UI/UX.
-- **More File Formats:** Add support for **TXT, ODT**, and other formats.
-
-## 8. Maintenance and Support
-
-### 8.1 File Cleanup
-- Deletes files older than **1 hour** to manage storage.
-- Cleanup task runs in the background **every hour**.
-
-### 8.2 Error Handling
-- Error handling for **text extraction, API calls, and file operations**.
-- Users receive **Streamlit error messages** when issues occur.
-
-### 8.3 Logging
-- Track **user activity, errors, and system performance**.
-- Store logs in a file or send to a monitoring system.
-
 ## 9. Conclusion
 The **AI English Compliance Checker** is a powerful tool for ensuring documents adhere to English writing standards. With planned enhancements, it will handle **larger documents** and provide even more robust compliance analysis.
-
-
-Content Modification: Provides AI-generated suggestions to correct issues found in the document. 
-
-User-Friendly Interface: Built using Streamlit, offering an intuitive and interactive experience. 
-
-File Management: Automatically cleans up user files older than 1 hour to manage storage. 
-
-Handling Large Files: Efficiently processes large documents using text chunking, pagination for PDFs, and a 10 MB file size limit
